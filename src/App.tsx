@@ -1,11 +1,19 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
+import HomePage from "./app/containers/HomePage";
 
-
+const AppContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 function App() {
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
+    <AppContainer>
+   <HomePage></HomePage>
+    </AppContainer>
   );
 }
 

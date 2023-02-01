@@ -12,6 +12,7 @@
                 }
                 coverImage {
                     extraLarge
+                    medium
                 }
             }
         

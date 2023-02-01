@@ -1,6 +1,8 @@
 import React, {useEffect} from "react";
 import styled from "styled-components";
 import animeService from "../../services/animeService";
+import { setAnimePage } from "./homePageSlice";
+import { HotAnime } from "./hotAnime";
 
 interface IHomePageProps {}
 
@@ -19,6 +21,7 @@ function HomePage(props: IHomePageProps) {
         });
 
         console.log("Anime Page", animePage);
+        if(animePage) setAnimePage(animePage)
     }
 
  useEffect(() => {
@@ -28,6 +31,7 @@ function HomePage(props: IHomePageProps) {
   return (
     <Container>
       <h1>Home Page</h1>
+      <HotAnime></HotAnime>
     </Container>
   );
 }

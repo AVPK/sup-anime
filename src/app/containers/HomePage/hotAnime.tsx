@@ -9,12 +9,21 @@ const HotAnimeContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-space-evenly ;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+`;
+
+const AnimeItemContainer = styled.div`
+  width: 17em;
+  height: 18em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const AnimeCover = styled.div`
   width: auto;
-  height: 10em;
+  height: 15em;
 
   img {
     width: auto;
@@ -22,46 +31,38 @@ const AnimeCover = styled.div`
   }
 `;
 
-const AnimeTitle = styled.div`
+const AnimeTitle = styled.h6`
   margin-top: 8px;
-  font-size: 12pt;
+  font-size: 15px;
   color: #000;
-  font-weight: 600;
-`;
-
-const AnimeItemContainer = styled.div`
-  width: 12em;
-  height: 16em;
-  display: flex;
-  flex-direction: column ;
+  font-weight: 500;
 `;
 
 const stateSelector = createSelector(makeSelectAnimePage, (animePage) => ({
   animePage,
 }));
 
-
-
 export function HotAnime() {
   const { animePage } = useAppSelector(stateSelector);
-  const isEmptyAnimePage = !animePage || !animePage.media || animePage.media.length === 0;
-console.log("checkData",animePage)
-  if(!isEmptyAnimePage){
-    console.log("Nodata")
-  return null;}
-  
+
+  const isEmptyAnimePage =
+    !animePage || !animePage.media || animePage.media.length === 0;
+
+  if (isEmptyAnimePage) return <div>Loading...</div>;
+
   return (
-  <HotAnimeContainer>
-    {animePage && animePage.media && animePage.media.map((anime)=>(
-        <AnimeItemContainer>
-        
-        <AnimeCover>
-            <img src={anime?.coverImage?.extraLarge || "img"} alt="img" />
-        </AnimeCover>
-        <AnimeTitle>{anime?.title?.english}</AnimeTitle>
-        </AnimeItemContainer>
-    )
-    )}
+    <HotAnimeContainer>
+      {animePage &&
+        animePage.media &&
+        animePage.media.map((anime, key) => (
+          <AnimeItemContainer key={key} >
+            <AnimeCover>
+              <img src={anime?.coverImage?.extraLarge || ""} alt='' />
+            </AnimeCover>
+            <AnimeTitle>{anime?.title?.english}</AnimeTitle>
+            <h5>Avergae Score: {anime?.averageScore}</h5>
+          </AnimeItemContainer>
+        ))}
     </HotAnimeContainer>
-    );
+  );
 }

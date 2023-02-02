@@ -1,6 +1,9 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
+import { Dispatch } from "redux";
 import styled from "styled-components";
+import { useAppDispatch } from "../../hooks";
 import animeService from "../../services/animeService";
+import { GetAnimePage } from "../../services/animeService/__generated__/GetAnimePage";
 import { setAnimePage } from "./homePageSlice";
 import { HotAnime } from "./hotAnime";
 
@@ -14,26 +17,31 @@ const Container = styled.div`
   align-items: center;
 `;
 
-function HomePage(props: IHomePageProps) {
-    const fetchAnimePage =async () => {
-        const animePage = await animeService.getAnimePage(0).catch((err) => {
-            console.log("Error", err);
-        });
+const actionDispatch = (dispatch: Dispatch) => ({
+  setAnimePage: (page: GetAnimePage["Page"]) => dispatch(setAnimePage(page)),
+});
 
-        console.log("Anime Page", animePage);
-        if(animePage) setAnimePage(animePage)
-    }
+export function HomePage(props: IHomePageProps) {
+  const { setAnimePage } = actionDispatch(useAppDispatch());
 
- useEffect(() => {
-   fetchAnimePage();
- }, [])
-    
+  
+
+  useEffect(() => {
+    const fetchAnimePage = async () => {
+      const animePage = await animeService.getAnimePage(0, 200).catch((err) => {
+        console.log("Error: ", err);
+      });
+  
+      console.log("Anime page: ", animePage);
+      if (animePage) setAnimePage(animePage);
+    };
+    fetchAnimePage();
+  }, [setAnimePage]);
+
   return (
     <Container>
-      <h1>Home Page</h1>
-      <HotAnime></HotAnime>
+      <h1>Hot Anime</h1>
+      <HotAnime />
     </Container>
   );
 }
-
-export default HomePage;

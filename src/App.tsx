@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import HomePage from "./app/containers/HomePage";
+import { HomePage } from "./app/containers/HomePage";
 
 const AppContainer = styled.div`
   width: 100%;
@@ -9,10 +9,11 @@ const AppContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 function App() {
   return (
     <AppContainer>
-   <HomePage></HomePage>
+      <HomePage />
     </AppContainer>
   );
 }

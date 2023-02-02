@@ -1,27 +1,27 @@
-import React from 'react';
+import React from "react";
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
+import { store } from "./app/store";
+import App from "./App";
 import reportWebVitals from './reportWebVitals';
-import './index.css';
-import { ApolloProvider } from '@apollo/client/react';
-import { apolloClient } from './app/graphql';
-
+import "./index.css";
+import * as serviceWorker from "./serviceWorker";
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from "./app/graphql";
 const container = document.getElementById('root')!;
 const root = createRoot(container);
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ApolloProvider client={apolloClient}>
-      <App />
+        <App />
       </ApolloProvider>
     </Provider>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
 reportWebVitals();

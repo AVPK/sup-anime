@@ -21,10 +21,6 @@ export interface GetAnimePage_Page_media_coverImage {
    * The cover image url of the media at its largest size. If this size isn't available, large will be provided instead.
    */
   extraLarge: string | null;
-  /**
-   * The cover image url of the media at medium size
-   */
-  medium: string | null;
 }
 
 export interface GetAnimePage_Page_media {
@@ -37,6 +33,10 @@ export interface GetAnimePage_Page_media {
    * Short description of the media's story and characters
    */
   description: string | null;
+  /**
+   * A weighted average score of all the user's scores of the media
+   */
+  averageScore: number | null;
   /**
    * The official titles of the media in various languages
    */
